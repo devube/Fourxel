@@ -98,8 +98,6 @@ int main(int argc, char const *argv[]) {
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), (GLvoid*)0);
 
-    std::cout << shapesVBO->getDataPointer() << '\n';
-
     while (!glfwWindowShouldClose(window)) {
         renderScene(shaderProgram, mainVAO);
 
