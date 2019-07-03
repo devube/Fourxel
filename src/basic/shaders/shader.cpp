@@ -4,7 +4,7 @@
 
 #include "basic/files/files.h"
 
-void Shader::loadShaderFromFile(char* filePath, GLenum shaderType) {
+void Shader::loadShaderFromFile(const char* filePath, GLenum shaderType) {
 
     char* shaderSrc = strFromFile(filePath);
 

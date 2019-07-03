@@ -21,11 +21,11 @@ void VertexBufferObject::addData(void* ptrData, GLuint dataSizeBytes,
 }
 
 void* VertexBufferObject::getDataPointer() {
-    return (void*)_rawData[0];
+    return (void*)&_rawData[0];
 }
 
 void VertexBufferObject::uploadDataToGPU(GLenum usageHint) {
-    glBufferData(_bufferType, _rawData.size(), &_rawData, usageHint);
+    glBufferData(_bufferType, _rawData.size(), &_rawData[0], usageHint);
     _uploadedDataSize = (GLuint)_rawData.size();
     _rawData.clear();
 }

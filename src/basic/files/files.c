@@ -1,7 +1,7 @@
 #include "files.h"
 #include <stdlib.h>
 
-char* strFromFile(char* path) {
+char* strFromFile(const char* path) {
     char* buffer = 0;
     long length;
     FILE* f = fopen(path, "rb");

@@ -2,5 +2,5 @@
 #include <stdio.h>
 
 extern "C" {
-    char* strFromFile(char* path);
+    char* strFromFile(const char* path);
 }

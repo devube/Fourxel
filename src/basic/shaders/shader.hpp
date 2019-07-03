@@ -4,7 +4,7 @@
 
 class Shader {
 public:
-    void loadShaderFromFile(char* filePath, GLenum shaderType);
+    void loadShaderFromFile(const char* filePath, GLenum shaderType);
 
     GLuint getShaderID() const;
     GLenum getShaderType() const;

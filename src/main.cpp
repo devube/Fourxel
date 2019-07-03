@@ -41,6 +41,8 @@ void initGLFWandGlad() {
         std::cout << "Warning: Loaded OpenGL version is not 4.5!" << '\n';
     }
 
+    glViewport(0, 0, 640, 480);
+
     glClearColor(0.07f, 0.03f, 0.56f, 1.0f);
     glfwSwapInterval(1);
 }
@@ -75,9 +77,9 @@ int main(int argc, char const *argv[]) {
     mainVAO->bindVAO();
 
     glm::vec3 vTriangle[] = {
-        glm::vec3(-0.4f, 0.1f, 0.0f),
-        glm::vec3(0.4f, 0.1f, 0.0f),
-        glm::vec3(0.0f, 0.7f, 0.0f)
+        glm::vec3(-0.5f, -0.2f, 0.0f),
+        glm::vec3(0.5f, -0.2f, 0.0f),
+        glm::vec3(0.0f,  1.0f, 0.0f)
     };
     glm::vec3 vQuad[] = {
         glm::vec3(-0.2f, -0.1f, 0.0f),
@@ -89,12 +91,14 @@ int main(int argc, char const *argv[]) {
     VertexBufferObject *shapesVBO = new VertexBufferObject();
     shapesVBO->createVBO();
     shapesVBO->bindVBO();
-    shapesVBO->addData(vTriangle, sizeof(glm::vec3) * 3);
+    shapesVBO->addData(&vTriangle, sizeof(glm::vec3) * 3);
     shapesVBO->addData(vQuad, sizeof(glm::vec3) * 4);
     shapesVBO->uploadDataToGPU(GL_STATIC_DRAW);
 
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), (GLvoid*)0);
+
+    std::cout << shapesVBO->getDataPointer() << '\n';
 
     while (!glfwWindowShouldClose(window)) {
         renderScene(shaderProgram, mainVAO);
