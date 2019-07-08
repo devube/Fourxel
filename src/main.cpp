@@ -81,14 +81,18 @@ int main(int argc, char const *argv[]) {
         glm::vec3(0.5f, -0.2f, 0.0f),
         glm::vec3(0.0f,  1.0f, 0.0f)
     };
+    glm::vec3 vTriangleColors[] = { glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f),glm::vec3(0.0f, 0.0f, 1.0f) };
+
     glm::vec3 vQuad[] = {
         glm::vec3(-0.2f, -0.1f, 0.0f),
         glm::vec3(-0.2f, -0.6f, 0.0f),
         glm::vec3(0.2f, -0.1f, 0.0f),
         glm::vec3(0.2f, -0.6f, 0.0f)
     };
+    glm::vec3 vQuadColors[] = { glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(0.0f, 0.0f, 1.0f), glm::vec3(1.0f, 0.5f, 0.0f) };
 
     VertexBufferObject *shapesVBO = new VertexBufferObject();
+    VertexBufferObject *colorsVBO = new VertexBufferObject();
     shapesVBO->createVBO();
     shapesVBO->bindVBO();
     shapesVBO->addData(&vTriangle, sizeof(glm::vec3) * 3);
@@ -96,7 +100,16 @@ int main(int argc, char const *argv[]) {
     shapesVBO->uploadDataToGPU(GL_STATIC_DRAW);
 
     glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), (GLvoid*)0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), 0);
+
+    colorsVBO->createVBO();
+    colorsVBO->bindVBO();
+    colorsVBO->addData(&vTriangleColors, sizeof(glm::vec3) * 3);
+    colorsVBO->addData(&vQuadColors, sizeof(glm::vec3) * 4);
+    colorsVBO->uploadDataToGPU(GL_STATIC_DRAW);
+
+    glEnableVertexAttribArray(1);
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), 0);
 
     while (!glfwWindowShouldClose(window)) {
         renderScene(shaderProgram, mainVAO);

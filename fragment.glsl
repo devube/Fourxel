@@ -1,7 +1,9 @@
 #version 450 core
-layout (location = 0) out vec4 outputColor;
+layout(location = 0) out vec4 outputColor;
+
+in vec3 ioVertexColor;
 
 void main()
 {
-    outputColor = vec4(1.0f, 1.0f, 1.0f, 1.0f);
+    outputColor = vec4(ioVertexColor, 1.0f);
 }
