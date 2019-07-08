@@ -92,7 +92,7 @@ int main(int argc, char const *argv[]) {
     shapesVBO->createVBO();
     shapesVBO->bindVBO();
     shapesVBO->addData(&vTriangle, sizeof(glm::vec3) * 3);
-    shapesVBO->addData(vQuad, sizeof(glm::vec3) * 4);
+    shapesVBO->addData(&vQuad, sizeof(glm::vec3) * 4);
     shapesVBO->uploadDataToGPU(GL_STATIC_DRAW);
 
     glEnableVertexAttribArray(0);
