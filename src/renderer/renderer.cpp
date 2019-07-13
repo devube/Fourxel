@@ -20,11 +20,7 @@ void renderScene(VertexArrayObject *VAO) {
     shaderProgram.useProgram();
     VAO->bindVAO();
 
-    shaderProgram["matrices.projectionMatrix"] = glm::perspective(
-    45.0f, // field of view angle (in degrees)
-    float(640) / float(480), // aspect ratio
-    0.5f, // near plane distance
-    1000.0f); // far plane distan
+
     shaderProgram["matrices.viewMatrix"] = camera.getViewMatrix();
 
     for (int i = 0; i < 10; i++) {
@@ -34,6 +30,17 @@ void renderScene(VertexArrayObject *VAO) {
         shaderProgram["matrices.modelMatrix"] = modelMatrixCube;
         glDrawArrays(GL_TRIANGLES, 0, 36);
     }
+
+    glm::mat4 modelMatrixPyramid = glm::mat4(1.0);
+    modelMatrixPyramid = glm::translate(modelMatrixPyramid, glm::vec3(0.0f, 4.0f, 0.0f));
+
+    shaderProgram["matrices.modelMatrix"] = modelMatrixPyramid;
+    glDrawArrays(GL_TRIANGLES, 36, 12);
+
+    glm::mat4 modelMatrixTriangle = glm::mat4(1.0);
+    modelMatrixTriangle = glm::translate(modelMatrixTriangle, glm::vec3(2.0f, 4.0f, 0.0f));
+    shaderProgram["matrices.modelMatrix"] = modelMatrixTriangle;
+    glDrawArrays(GL_TRIANGLES, 48, 3);
 
     int winPosX, winPosY, winWidth, winHeight;
     glfwGetWindowPos(window, &winPosX, &winPosY);

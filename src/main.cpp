@@ -3,6 +3,7 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <glm/vec3.hpp>
+#include <glm/ext/matrix_clip_space.hpp>
 
 #include "basic/windowEvents.hpp"
 #include "basic/input.hpp"
@@ -55,7 +56,7 @@ void initGLFWandGlad() {
 
     glViewport(0, 0, 640, 480);
 
-    glClearColor(0.07f, 0.03f, 0.56f, 1.0f);
+    glClearColor(0.07f, 0.9f, 0.0f, 1.0f);
     glfwSwapInterval(1);
 
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
@@ -90,10 +91,14 @@ int main(int argc, char const *argv[]) {
     mainVAO->createVAO();
     mainVAO->bindVAO();
 
+    glm::vec3 Triangle[] = {glm::vec3(-0.4f, 0.1f, 0.0f), glm::vec3(0.4f, 0.1f, 0.0f), glm::vec3(0.0f, 0.7f, 0.0f)};
+
     VertexBufferObject *shapesVBO = new VertexBufferObject();
     shapesVBO->createVBO();
     shapesVBO->bindVBO();
     shapesVBO->addData(staticGeometry::cubeVertices, sizeof(staticGeometry::cubeVertices));
+    shapesVBO->addData(staticGeometry::pyramidVertices, sizeof(staticGeometry::pyramidVertices));
+    shapesVBO->addData(Triangle, sizeof(glm::vec3) * 3);
     shapesVBO->uploadDataToGPU(GL_STATIC_DRAW);
 
     glEnableVertexAttribArray(0);
@@ -105,12 +110,27 @@ int main(int argc, char const *argv[]) {
     for (GLuint i = 0; i < 6; i++) {
         colorsVBO->addData(staticGeometry::cubeFaceColors, sizeof(staticGeometry::cubeFaceColors));
     }
+
+    for (GLuint i = 0; i < 4; i++) {
+        colorsVBO->addData(staticGeometry::pyramidFaceColors, sizeof(staticGeometry::pyramidFaceColors));
+    }
+
+    glm::vec3 TriangleColors[] = {glm::vec3(0.1f, 0.1f, 1.0f), glm::vec3(0.0f, 0.3f, 1.0f), glm::vec3(0.0f, 0.0f, 1.0f)};
+
+    colorsVBO->addData(TriangleColors, sizeof(glm::vec3) * 3);
+
     colorsVBO->uploadDataToGPU(GL_STATIC_DRAW);
 
     glEnableVertexAttribArray(1);
     glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), (void*)0);
 
     camera.setControls(GLFW_KEY_W, GLFW_KEY_S, GLFW_KEY_A, GLFW_KEY_D);
+
+    shaderProgram["matrices.projectionMatrix"] = glm::perspective(
+    45.0f, // field of view angle (in degrees)
+    float(640) / float(480), // aspect ratio
+    0.5f, // near plane distance
+    1000.0f); // far plane distan
 
     while (!glfwWindowShouldClose(window)) {
         timeUtils::updateDeltaTimeAndFPS();
