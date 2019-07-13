@@ -3,7 +3,6 @@ layout(location = 0) out vec4 outputColor;
 
 in vec3 ioVertexColor;
 
-void main()
-{
+void main() {
     outputColor = vec4(ioVertexColor, 1.0f);
 }

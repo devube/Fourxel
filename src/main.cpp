@@ -7,7 +7,7 @@
 #include "basic/windowEvents.hpp"
 #include "basic/input.hpp"
 
-#include "basic/renderer.hpp"
+#include "renderer/renderer.hpp"
 
 #include "basic/shaders/shader.hpp"
 #include "basic/shaders/shaderProgram.hpp"
@@ -15,7 +15,19 @@
 #include "basic/GPUdata/vertexArrayObject.hpp"
 #include "basic/GPUdata/vertexBufferObject.hpp"
 
+#include "geometry/staticGeometry.hpp"
+
+#include "basic/time/timeUtils.hpp"
+
+#include "camera/walkingCamera.hpp"
+
 GLFWwindow *window;
+
+ShaderProgram shaderProgram;
+
+WalkingCamera camera(glm::vec3(0.0f, 1.0f, 20.0f),
+glm::vec3(0.0f, 1.0f, 19.0f),
+glm::vec3(0.0f, 1.0f, 0.0f));
 
 void initGLFWandGlad() {
     glfwSetErrorCallback(errorCallback);
@@ -45,6 +57,10 @@ void initGLFWandGlad() {
 
     glClearColor(0.07f, 0.03f, 0.56f, 1.0f);
     glfwSwapInterval(1);
+
+    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+
+    glEnable(GL_DEPTH_TEST);
 }
 
 int main(int argc, char const *argv[]) {
@@ -61,13 +77,11 @@ int main(int argc, char const *argv[]) {
     vertexShader->loadShaderFromFile("vertex.glsl", GL_VERTEX_SHADER);
     fragmentShader->loadShaderFromFile("fragment.glsl", GL_FRAGMENT_SHADER);
 
-    ShaderProgram *shaderProgram = new ShaderProgram();
-
-    shaderProgram->createProgram();
-    shaderProgram->addShaderToProgram(*vertexShader);
-    shaderProgram->addShaderToProgram(*fragmentShader);
-    shaderProgram->linkProgram();
-    shaderProgram->useProgram();
+    shaderProgram.createProgram();
+    shaderProgram.addShaderToProgram(*vertexShader);
+    shaderProgram.addShaderToProgram(*fragmentShader);
+    shaderProgram.linkProgram();
+    shaderProgram.useProgram();
 
     delete vertexShader;
     delete fragmentShader;
@@ -76,44 +90,31 @@ int main(int argc, char const *argv[]) {
     mainVAO->createVAO();
     mainVAO->bindVAO();
 
-    glm::vec3 vTriangle[] = {
-        glm::vec3(-0.5f, -0.2f, 0.0f),
-        glm::vec3(0.5f, -0.2f, 0.0f),
-        glm::vec3(0.0f,  1.0f, 0.0f)
-    };
-    glm::vec3 vTriangleColors[] = { glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f),glm::vec3(0.0f, 0.0f, 1.0f) };
-
-    glm::vec3 vQuad[] = {
-        glm::vec3(-0.2f, -0.1f, 0.0f),
-        glm::vec3(-0.2f, -0.6f, 0.0f),
-        glm::vec3(0.2f, -0.1f, 0.0f),
-        glm::vec3(0.2f, -0.6f, 0.0f)
-    };
-    glm::vec3 vQuadColors[] = { glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(0.0f, 0.0f, 1.0f), glm::vec3(1.0f, 0.5f, 0.0f) };
-
     VertexBufferObject *shapesVBO = new VertexBufferObject();
-    VertexBufferObject *colorsVBO = new VertexBufferObject();
     shapesVBO->createVBO();
     shapesVBO->bindVBO();
-    shapesVBO->addData(&vTriangle, sizeof(glm::vec3) * 3);
-    shapesVBO->addData(&vQuad, sizeof(glm::vec3) * 4);
+    shapesVBO->addData(staticGeometry::cubeVertices, sizeof(staticGeometry::cubeVertices));
     shapesVBO->uploadDataToGPU(GL_STATIC_DRAW);
 
     glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), 0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), (void*)0);
 
+    VertexBufferObject *colorsVBO = new VertexBufferObject();
     colorsVBO->createVBO();
     colorsVBO->bindVBO();
-    colorsVBO->addData(&vTriangleColors, sizeof(glm::vec3) * 3);
-    colorsVBO->addData(&vQuadColors, sizeof(glm::vec3) * 4);
+    for (GLuint i = 0; i < 6; i++) {
+        colorsVBO->addData(staticGeometry::cubeFaceColors, sizeof(staticGeometry::cubeFaceColors));
+    }
     colorsVBO->uploadDataToGPU(GL_STATIC_DRAW);
 
     glEnableVertexAttribArray(1);
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), 0);
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), (void*)0);
+
+    camera.setControls(GLFW_KEY_W, GLFW_KEY_S, GLFW_KEY_A, GLFW_KEY_D);
 
     while (!glfwWindowShouldClose(window)) {
-        renderScene(shaderProgram, mainVAO);
-
+        timeUtils::updateDeltaTimeAndFPS();
+        renderScene(mainVAO);
 
         glfwSwapBuffers(window);
         glfwPollEvents();

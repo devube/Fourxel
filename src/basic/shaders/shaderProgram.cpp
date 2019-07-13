@@ -3,6 +3,10 @@
 #include <stdexcept>
 #include <string>
 
+ShaderProgram::~ShaderProgram() {
+    deleteProgram();
+}
+
 void ShaderProgram::createProgram() {
     _shaderProgramID = glCreateProgram();
 }
@@ -28,6 +32,23 @@ void ShaderProgram::useProgram() {
     glUseProgram(_shaderProgramID);
 }
 
+void ShaderProgram::deleteProgram() {
+    glDeleteProgram(_shaderProgramID);
+}
+
 GLuint ShaderProgram::getShaderProgramID() const {
     return _shaderProgramID;
 }
+
+Uniform& ShaderProgram::operator[] (const std::string& varName) {
+    if (_uniforms.count(varName) == 0) {
+        _uniforms[varName] = Uniform(varName, this);
+    }
+
+    return _uniforms[varName];
+}
+
+// void ShaderProgram::setModelAndNormalMatrix(const glm::mat4& modelMatrix) {
+//     (*this)[ShaderConstants::modelMatrix()] = modelMatrix;
+//     (*this)["matrices.normalMatrix"] == glm::transpose(glm::inverse(glm::mat3(modelMatrix)));
+// }
