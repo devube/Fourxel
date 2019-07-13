@@ -49,6 +49,7 @@ void initGLFWandGlad() {
         throw std::runtime_error("Failed to initialize OpenGL context! Possible solution: Check graphics drivers.");
     }
     glfwSetKeyCallback(window, keyCallback);
+    glfwSetWindowSizeCallback(window, onWindowSizeChanged);
 
     if (!GLAD_GL_VERSION_4_5) {
         std::cout << "Warning: Loaded OpenGL version is not 4.5!" << '\n';
