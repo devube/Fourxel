@@ -1,8 +1,11 @@
 #version 450 core
 layout(location = 0) out vec4 outputColor;
 
-in vec3 ioVertexColor;
+smooth in vec2 ioVertexTexCoord;
+
+uniform sampler2D gSampler;
 
 void main() {
-    outputColor = vec4(ioVertexColor, 1.0f);
+    vec4 texColor = texture(gSampler, ioVertexTexCoord);
+    outputColor = texColor;
 }

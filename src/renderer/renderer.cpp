@@ -37,10 +37,6 @@ void renderScene(VertexArrayObject *VAO) {
     shaderProgram["matrices.modelMatrix"] = modelMatrixPyramid;
     glDrawArrays(GL_TRIANGLES, 36, 12);
 
-    glm::mat4 modelMatrixTriangle = glm::mat4(1.0);
-    modelMatrixTriangle = glm::translate(modelMatrixTriangle, glm::vec3(2.0f, 4.0f, 0.0f));
-    shaderProgram["matrices.modelMatrix"] = modelMatrixTriangle;
-    glDrawArrays(GL_TRIANGLES, 48, 3);
 
     int winPosX, winPosY, winWidth, winHeight;
     glfwGetWindowPos(window, &winPosX, &winPosY);

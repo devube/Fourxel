@@ -22,6 +22,9 @@
 
 #include "camera/walkingCamera.hpp"
 
+#include "basic/texture/texture.hpp"
+#include "basic/texture/sampler.hpp"
+
 GLFWwindow *window;
 
 ShaderProgram shaderProgram;
@@ -92,40 +95,39 @@ int main(int argc, char const *argv[]) {
     mainVAO->createVAO();
     mainVAO->bindVAO();
 
-    glm::vec3 Triangle[] = {glm::vec3(-0.4f, 0.1f, 0.0f), glm::vec3(0.4f, 0.1f, 0.0f), glm::vec3(0.0f, 0.7f, 0.0f)};
-
     VertexBufferObject *shapesVBO = new VertexBufferObject();
     shapesVBO->createVBO();
     shapesVBO->bindVBO();
     shapesVBO->addData(staticGeometry::cubeVertices, sizeof(staticGeometry::cubeVertices));
     shapesVBO->addData(staticGeometry::pyramidVertices, sizeof(staticGeometry::pyramidVertices));
-    shapesVBO->addData(Triangle, sizeof(glm::vec3) * 3);
     shapesVBO->uploadDataToGPU(GL_STATIC_DRAW);
 
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), (void*)0);
 
-    VertexBufferObject *colorsVBO = new VertexBufferObject();
-    colorsVBO->createVBO();
-    colorsVBO->bindVBO();
-    for (GLuint i = 0; i < 6; i++) {
-        colorsVBO->addData(staticGeometry::cubeFaceColors, sizeof(staticGeometry::cubeFaceColors));
-    }
-
-    for (GLuint i = 0; i < 4; i++) {
-        colorsVBO->addData(staticGeometry::pyramidFaceColors, sizeof(staticGeometry::pyramidFaceColors));
-    }
-
-    glm::vec3 TriangleColors[] = {glm::vec3(0.1f, 0.1f, 1.0f), glm::vec3(0.0f, 0.3f, 1.0f), glm::vec3(0.0f, 0.0f, 1.0f)};
-
-    colorsVBO->addData(TriangleColors, sizeof(glm::vec3) * 3);
-
-    colorsVBO->uploadDataToGPU(GL_STATIC_DRAW);
+    VertexBufferObject *texCoordsVBO = new VertexBufferObject();
+    texCoordsVBO->createVBO();
+    texCoordsVBO->bindVBO();
+    texCoordsVBO->addData(staticGeometry::cubeTexCoords, sizeof(staticGeometry::cubeTexCoords), 6);
+    texCoordsVBO->addData(staticGeometry::pyramidTexCoords, sizeof(staticGeometry::pyramidTexCoords), 4);
+    texCoordsVBO->uploadDataToGPU(GL_STATIC_DRAW);
 
     glEnableVertexAttribArray(1);
     glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), (void*)0);
 
     camera.setControls(GLFW_KEY_W, GLFW_KEY_S, GLFW_KEY_A, GLFW_KEY_D);
+
+    Texture stoneTexture;
+    stoneTexture.loadTexture2D("assets/textures/stone.png");
+    stoneTexture.bind();
+
+    Sampler stoneSampler;
+    stoneSampler.create();
+    stoneSampler.bind();
+    stoneSampler.setMinificationFilter(MIN_FILTER_NEAREST);
+    stoneSampler.setMagnificationFilter(MAG_FILTER_NEAREST);
+
+    shaderProgram["sampler"] = 0;
 
     shaderProgram["matrices.projectionMatrix"] = glm::perspective(
     45.0f, // field of view angle (in degrees)

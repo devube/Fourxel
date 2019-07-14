@@ -1,6 +1,6 @@
 #version 450 core
 layout(location = 0) in vec3 vertexPosition;
-layout(location = 1) in vec3 vertexColor;
+layout(location = 1) in vec2 vertexTexCoord;
 
 uniform struct {
     mat4 projectionMatrix;
@@ -8,13 +8,12 @@ uniform struct {
     mat4 modelMatrix;
 } matrices;
 
-out vec3 ioVertexColor;
+smooth out vec2 ioVertexTexCoord;
 
 vec4 oVertexPosition;
 // mat4 transform;
 
 void main() {
-    ioVertexColor = vertexColor;
     // transform[0] = vec4(1.0, 0.0, 0.0, 0.0); // x
     // transform[1] = vec4(0.0, 1.0, 0.0, 0.0); // y
     // transform[2] = vec4(0.0, 0.0, 1.0, 0.0); // z
@@ -25,4 +24,5 @@ void main() {
     oVertexPosition = vec4(vertexPosition, 1.0);
     oVertexPosition = mvpMatrix * oVertexPosition;
     gl_Position = oVertexPosition;
+    ioVertexTexCoord = vertexTexCoord;
 }
