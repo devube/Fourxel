@@ -8,16 +8,11 @@ uniform struct {
     mat4 modelMatrix;
 } matrices;
 
-smooth out vec2 ioVertexTexCoord;
+out vec2 ioVertexTexCoord;
 
 vec4 oVertexPosition;
-// mat4 transform;
 
 void main() {
-    // transform[0] = vec4(1.0, 0.0, 0.0, 0.0); // x
-    // transform[1] = vec4(0.0, 1.0, 0.0, 0.0); // y
-    // transform[2] = vec4(0.0, 0.0, 1.0, 0.0); // z
-    // transform[3] = vec4(0.0, 0.0, 0.0, 1.0); // w
 
     mat4 mvpMatrix = matrices.projectionMatrix * matrices.viewMatrix * matrices.modelMatrix;
 

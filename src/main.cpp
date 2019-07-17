@@ -127,7 +127,7 @@ int main(int argc, char const *argv[]) {
     stoneSampler.setMinificationFilter(MIN_FILTER_NEAREST);
     stoneSampler.setMagnificationFilter(MAG_FILTER_NEAREST);
 
-    shaderProgram["sampler"] = 0;
+    shaderProgram["gSampler"] = 0;
 
     shaderProgram["matrices.projectionMatrix"] = glm::perspective(
     45.0f, // field of view angle (in degrees)

@@ -1,7 +1,7 @@
 #version 450 core
 layout(location = 0) out vec4 outputColor;
 
-smooth in vec2 ioVertexTexCoord;
+in vec2 ioVertexTexCoord;
 
 uniform sampler2D gSampler;
 
