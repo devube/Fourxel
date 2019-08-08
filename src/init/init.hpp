@@ -1,3 +1,5 @@
+/* Init functions */
+
 #pragma once
 
 namespace init {

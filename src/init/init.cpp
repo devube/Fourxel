@@ -2,6 +2,7 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include "window/window.hpp"
+#include "shader/shader.hpp"
 
 void init::initGLFW(const int width, const int height, const char[] title) {
     //glfwSetErrorCallback(errorCallback);
@@ -44,5 +45,13 @@ void init::initOpenGL() {
 }
 
 void init::initShaders() {
-    
+    // Create high level shader objects
+    Shader *vertexShader = new Shader();
+    Shader *fragmentShader = new Shader();
+
+    // Load shaders from files and compile them
+    vertexShader->loadShaderFromFile("vertex.glsl", GL_VERTEX_SHADER);
+    fragmentShader->loadShaderFromFile("fragment.glsl", GL_FRAGMENT_SHADER);
+
+    // Initialize shader program
 }
