@@ -1,3 +1,5 @@
+#pragma once
+
 namespace terminate {
     // destroy window and terminate GLFW
     void termGLFW();
