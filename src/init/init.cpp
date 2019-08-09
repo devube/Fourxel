@@ -3,12 +3,13 @@
 #include <GLFW/glfw3.h>
 #include "window/window.hpp"
 #include "shader/shader.hpp"
+#include "log/log.hpp"
 
 void init::initGLFW(const int width, const int height, const char[] title) {
     //glfwSetErrorCallback(errorCallback);
 
     if (!glfwInit()) {
-        throw std::runtime_error("Error while initializing GLFW! Possible solution: Check graphics drivers.");
+        log::error("Error while initializing GLFW! Possible solution: Check graphics drivers.");
     }
 
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4); // OpenGL 4.5
@@ -16,7 +17,7 @@ void init::initGLFW(const int width, const int height, const char[] title) {
 
     Window::GLFWwindowptr = glfwCreateWindow(width, height, title, NULL, NULL);
     if (!Window::GLFWwindowptr) {
-        throw std::runtime_error("Error while creating window or OpenGL context! Possible solution: Check graphics drivers.");
+        log::error("Error while creating window or OpenGL context! Possible solution: Check graphics drivers.");
     }
 
     glfwMakeContextCurrent(Window::GLFWwindowptr);
@@ -32,7 +33,7 @@ void init::initGLFW(const int width, const int height, const char[] title) {
 
 void init::initOpenGL() {
     if (!gladLoadGLLoader((GLADloadproc) glfwGetProcAddress)) {
-        throw std::runtime_error("Failed to initialize OpenGL context! Possible solution: Check graphics drivers.");
+        log::error("Failed to initialize OpenGL context! Possible solution: Check graphics drivers.");
     }
 
     int width, height;

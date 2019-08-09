@@ -6,6 +6,7 @@
 #pragma once
 #include <glad/glad.h>
 #include "shader.hpp"
+#include "uniform.hpp"
 
 class ShaderProgram {
 private:
