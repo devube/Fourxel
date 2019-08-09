@@ -2,6 +2,8 @@
 *  Easly assign values to uniform variables.
 */
 
+//TODO: vec4 and mat5 support
+
 #pragma once
 #include <glad/glad.h>
 #include <glm/vec2.hpp>
@@ -25,13 +27,14 @@ public:
     Uniform(const char[] name, ShaderProgram* shaderProgram);
 
     // Setting various uniform types
+    Uniform& operator=(const float floatValue);
+    Uniform& operator=(const int integerValue);
+    Uniform& operator=(const bool boolValue);
+
     Uniform& operator=(const glm::vec2& vector2);
     Uniform& operator=(const glm::vec3& vector3);
     Uniform& operator=(const glm::vec4& vector4);
 
-    Uniform& operator=(const float floatValue);
-    Uniform& operator=(const int integerValue);
-    Uniform& operator=(const bool boolValue);
     Uniform& operator=(const glm::mat2& matrix);
     Uniform& operator=(const glm::mat3& matrix);
     Uniform& operator=(const glm::mat4& matrix);
