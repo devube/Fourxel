@@ -4,6 +4,8 @@
 #include "window/window.hpp"
 #include "shader/shader.hpp"
 #include "log/log.hpp"
+#include "shader/shaderprogram.hpp"
+#include "render/renderer.hpp"
 
 void init::initGLFW(const int width, const int height, const char[] title) {
     //glfwSetErrorCallback(errorCallback);
@@ -55,4 +57,14 @@ void init::initShaders() {
     fragmentShader->loadShaderFromFile("fragment.glsl", GL_FRAGMENT_SHADER);
 
     // Initialize shader program
+    Renderer::currentProgram = new ShaderProgram();
+    Renderer::currentProgram->createProgram();
+    Renderer::currentProgram->addShaderToProgram(*vertexShader);
+    Renderer::currentProgram->addShaderToProgram(*fragmentShader);
+    Renderer::currentProgram->linkProgram();
+    Renderer::currentProgram->useProgram();
+
+    // Shader instances are not needed now, because are added to program
+    delete vertexShader;
+    delete fragmentShader;
 }
