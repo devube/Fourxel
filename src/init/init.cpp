@@ -68,3 +68,7 @@ void init::initShaders() {
     delete vertexShader;
     delete fragmentShader;
 }
+
+void init::initVertexBuffers() {
+    
+}
