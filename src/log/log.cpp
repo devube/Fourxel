@@ -2,14 +2,14 @@
 //TODO: Some better output stream (in-game console or something)
 #include <stdio.h>
 
-void log::info(const char[] info) const {
+void _log::info(const char info[]) {
     printf("Info: %s\n", info);
 }
 
-void log::warning(const char[] warning) const {
+void _log::warning(const char warning[]) {
     printf("Warning! %s\n", warning);
 }
 
-void log::error(const char[] error) const {
+void _log::error(const char error[]) {
     printf("ERROR! %s\n", error);
 }

@@ -1,14 +1,18 @@
 #include "uniform.hpp"
 #include "shaderprogram.hpp"
 #include "log/log.hpp"
+#include <string>
 
 Uniform::Uniform() : _shaderProgram(nullptr), _location(-1) {}
 
-Uniform::Uniform(const char[] name, ShaderProgram* shaderProgram) :
+Uniform::Uniform(char *name, ShaderProgram* shaderProgram) :
     _name(name), _shaderProgram(shaderProgram) {
     _location = glGetUniformLocation(_shaderProgram->getShaderProgramID(), _name);
     if (_location == -1) {
-        log::warning(name + "uniform does not exist!");
+        std::string message(name);
+        message.append( "uniform does not exist!");
+
+        _log::warning(message.c_str());
     }
 }
 
@@ -23,8 +27,8 @@ Uniform& Uniform::operator=(const int integerValue) {
     return *this;
 }
 
-Uniform& Uniform::operator=(const bool* boolValue) {
-    glUniform1iv(_location, 1, &boolValue);
+Uniform& Uniform::operator=(const bool boolValue) {
+    glUniform1i(_location, boolValue);
     return *this;
 }
 

@@ -5,13 +5,14 @@
 
 #pragma once
 #include <glad/glad.h>
+#include <map>
 #include "shader.hpp"
 #include "uniform.hpp"
 
 class ShaderProgram {
 private:
     GLuint _shaderProgramID;
-    std::map<const char[], Uniform> _uniforms;
+    std::map<const char*, Uniform> _uniforms;
 
 public:
     void createProgram();
@@ -22,7 +23,7 @@ public:
 
     GLuint getShaderProgramID() const;
 
-    Uniform& operator[](const char[]& varName);
+    Uniform& operator[](char *varName);
 
     ~ShaderProgram();
 };

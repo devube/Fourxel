@@ -1,5 +1,5 @@
 #include "shader.hpp"
-#include "files/readfile.h"
+#include "files/readfile.hpp"
 #include "log/log.hpp"
 
 void Shader::loadShaderFromFile(const char* filePath, GLenum shaderType) {
@@ -19,7 +19,7 @@ void Shader::loadShaderFromFile(const char* filePath, GLenum shaderType) {
     if (compilationStatus == GL_FALSE) {
         GLchar infoLogBuffer[512];
         glGetShaderInfoLog(_shaderID, 512, NULL, infoLogBuffer);
-        log::error(infoLogBuffer);
+        _log::error(infoLogBuffer);
     }
 
     _shaderType = shaderType;

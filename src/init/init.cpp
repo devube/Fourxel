@@ -1,17 +1,18 @@
 #include "init.hpp"
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
-#include "window/window.hpp"
-#include "shader/shader.hpp"
-#include "log/log.hpp"
-#include "shader/shaderprogram.hpp"
-#include "render/renderer.hpp"
 
-void init::initGLFW(const int width, const int height, const char[] title) {
+#include <window/window.hpp>
+#include <shader/shader.hpp>
+#include <log/log.hpp>
+#include <shader/shaderprogram.hpp>
+#include <render/renderer.hpp>
+
+void init::initGLFW(const int width, const int height, const char title[]) {
     //glfwSetErrorCallback(errorCallback);
 
     if (!glfwInit()) {
-        log::error("Error while initializing GLFW! Possible solution: Check graphics drivers.");
+        _log::error("Error while initializing GLFW! Possible solution: Check graphics drivers.");
     }
 
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4); // OpenGL 4.5
@@ -19,7 +20,7 @@ void init::initGLFW(const int width, const int height, const char[] title) {
 
     Window::GLFWwindowptr = glfwCreateWindow(width, height, title, NULL, NULL);
     if (!Window::GLFWwindowptr) {
-        log::error("Error while creating window or OpenGL context! Possible solution: Check graphics drivers.");
+        _log::error("Error while creating window or OpenGL context! Possible solution: Check graphics drivers.");
     }
 
     glfwMakeContextCurrent(Window::GLFWwindowptr);
@@ -35,11 +36,11 @@ void init::initGLFW(const int width, const int height, const char[] title) {
 
 void init::initOpenGL() {
     if (!gladLoadGLLoader((GLADloadproc) glfwGetProcAddress)) {
-        log::error("Failed to initialize OpenGL context! Possible solution: Check graphics drivers.");
+        _log::error("Failed to initialize OpenGL context! Possible solution: Check graphics drivers.");
     }
 
     int width, height;
-    glfwGetFramebufferSize(Window::GlFWwindowptr, &width, &height);
+    glfwGetFramebufferSize(Window::GLFWwindowptr, &width, &height);
     glViewport(0, 0, width, height);
 
     glClearColor(0.07f, 0.3f, 0.8f, 1.0f);

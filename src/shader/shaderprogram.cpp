@@ -1,5 +1,5 @@
 #include "shaderprogram.hpp"
-#include "log/log.hpp"
+#include <log/log.hpp>
 
 void ShaderProgram::createProgram() {
     _shaderProgramID = glCreateProgram();
@@ -18,7 +18,7 @@ void ShaderProgram::linkProgram() {
     if (linkStatus == GL_FALSE) {
         GLchar infoLogBuffer[512];
         glGetProgramInfoLog(_shaderProgramID, 512, NULL, infoLogBuffer);
-        log::error(infoLogBuffer);
+        _log::error(infoLogBuffer);
     }
 }
 
@@ -38,7 +38,7 @@ ShaderProgram::~ShaderProgram() {
     deleteProgram();
 }
 
-Uniform& ShaderProgram::operator[](const char[]& varName) {
+Uniform& ShaderProgram::operator[](char *varName) {
     // if there is no uniform with given name, then create one
     if (_uniforms.count(varName) == 0) {
         _uniforms[varName]= Uniform(varName, this);

@@ -13,18 +13,18 @@
 #include <glm/mat3x3.hpp>
 #include <glm/mat4x4.hpp>
 
-extern class ShaderProgram;
+class ShaderProgram;
 
 class Uniform {
 private:
     ShaderProgram* _shaderProgram;
 
-    char[] _name;
+    char *_name;
     GLint _location;
 
 public:
     Uniform();
-    Uniform(const char[] name, ShaderProgram* shaderProgram);
+    Uniform(char *name, ShaderProgram* shaderProgram);
 
     // Setting various uniform types
     Uniform& operator=(const float floatValue);
