@@ -5,7 +5,7 @@
 class ElementBufferObject {
 public:
     void createEBO(GLuint reserveSizeBytes = 0);
-    void bindEBO(GLenum bufferType = GL_ARRAY_BUFFER);
+    void bindEBO(GLenum bufferType = GL_ELEMENT_ARRAY_BUFFER);
 
     void addData(void* ptrData, GLuint dataSizeBytes, GLuint repeat = 1);
     void* getDataPointer();
