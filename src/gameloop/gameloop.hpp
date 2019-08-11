@@ -2,4 +2,4 @@
 
 namespace gameloop {
     void gameloop();
-} /* namespace gameloop */
+} // namespace gameloop 

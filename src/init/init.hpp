@@ -8,4 +8,4 @@ namespace init {
     void initShaders();
     void initVertexBuffers();
     void initTextures();
-} /* namespace init */
+} // namespace init

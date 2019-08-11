@@ -12,7 +12,8 @@ int main(int argc, char const *argv[]) {
 
     gameloop::gameloop();
 
+    // Terminate GLFW when user quit application
     terminate::termGLFW();
 
     return 0;
-} /* int main() */
+} // int main()

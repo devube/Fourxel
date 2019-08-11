@@ -32,7 +32,7 @@ void init::initGLFW(const int width, const int height, const char title[]) {
 
     // make cursor invisible and lock it in center of window
     glfwSetInputMode(Window::GLFWwindowptr, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-}
+} // void init::initGLFW()
 
 void init::initOpenGL() {
     if (!gladLoadGLLoader((GLADloadproc) glfwGetProcAddress)) {
@@ -46,7 +46,7 @@ void init::initOpenGL() {
     glClearColor(0.07f, 0.3f, 0.8f, 1.0f);
 
     glEnable(GL_DEPTH_TEST);
-}
+} // void init::initOpenGL()
 
 void init::initShaders() {
     // Create high level shader objects
@@ -68,8 +68,12 @@ void init::initShaders() {
     // Shader instances are not needed now, because are added to program
     delete vertexShader;
     delete fragmentShader;
-}
+} // void init::initShaders()
 
 void init::initVertexBuffers() {
     //TODO: better method to send vertex buffers, not here
-}
+} // void init::initVertexBuffers()
+
+void init::initTextures() {
+
+} // void init::initTextures()
