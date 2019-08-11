@@ -71,5 +71,5 @@ void init::initShaders() {
 }
 
 void init::initVertexBuffers() {
-    
+    //TODO: better method to send vertex buffers, not here
 }
