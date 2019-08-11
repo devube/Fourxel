@@ -19,7 +19,7 @@ target_link_libraries(Fourxel
 
 configure_file(fragment.glsl fragment.glsl COPYONLY)
 configure_file(vertex.glsl vertex.glsl COPYONLY)
-configure_file(assets/models/cube.mdl assets/models/cube.mdl COPYONLY)
+configure_file(assets/models/cube.obj assets/models/cube.obj COPYONLY)
 configure_file(assets/textures/stone.png assets/textures/stone.png COPYONLY)
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
