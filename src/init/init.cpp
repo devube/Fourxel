@@ -70,10 +70,6 @@ void init::initShaders() {
     delete fragmentShader;
 } // void init::initShaders()
 
-void init::initVertexBuffers() {
-    //TODO: better method to send vertex buffers, not here
-} // void init::initVertexBuffers()
-
-void init::initTextures() {
-
-} // void init::initTextures()
+void init::initModels() {
+    
+} // void init::initModels()

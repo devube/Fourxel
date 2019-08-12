@@ -6,6 +6,7 @@
 
 #pragma once
 #include "shader/shaderprogram.hpp"
+#include "model.hpp"
 
 class Renderer {
 private:
@@ -13,4 +14,6 @@ private:
 
 public:
     static ShaderProgram *currentProgram;
+
+    //TODO: Private models
 };
