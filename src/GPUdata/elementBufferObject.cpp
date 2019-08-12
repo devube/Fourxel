@@ -2,6 +2,6 @@
 
 using namespace GPUdata;
 
-ElementBufferObject::ElementBufferObject(GLenum type): BufferObject(type) {
+ElementBufferObject::ElementBufferObject(): BufferObject(GL_ELEMENT_ARRAY_BUFFER) {
     
 }

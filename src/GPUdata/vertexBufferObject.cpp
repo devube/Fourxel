@@ -2,6 +2,6 @@
 
 using namespace GPUdata;
 
-VertexBufferObject::VertexBufferObject(GLenum type): BufferObject(type) {
+VertexBufferObject::VertexBufferObject(): BufferObject(GL_ARRAY_BUFFER) {
     
 }

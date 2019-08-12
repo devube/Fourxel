@@ -7,7 +7,7 @@
 namespace GPUdata {
     class ElementBufferObject : public BufferObject {
     public:
-        ElementBufferObject(GLenum type = GL_ELEMENT_ARRAY_BUFFER);
+        ElementBufferObject();
     };
 }
 
