@@ -34,9 +34,9 @@ Model **Model::load_many(const char **path, size_t count) {
         models[i]->vertices->addData(loader.LoadedVertices.data(), loader.LoadedVertices.size() * sizeof(objl::Vertex));
         models[i]->vertices->uploadDataToGPU(GL_STATIC_DRAW);
 
-        models[i]->indeces = new GPUdata::ElementBufferObject();
-        models[i]->indeces->addData(loader.LoadedIndices.data(), loader.LoadedIndices.size() * sizeof(int));
-        models[i]->indeces->uploadDataToGPU(GL_STATIC_DRAW);
+        models[i]->indices = new GPUdata::ElementBufferObject();
+        models[i]->indices->addData(loader.LoadedIndices.data(), loader.LoadedIndices.size() * sizeof(int));
+        models[i]->indices->uploadDataToGPU(GL_STATIC_DRAW);
     }
 
     return models;
