@@ -12,7 +12,7 @@ Uniform::Uniform(char *name, ShaderProgram* shaderProgram) :
         std::string message(name);
         message.append( "uniform does not exist!");
 
-        _log::warning(message.c_str());
+        _log::warning(message.c_str(), __FILE__, __LINE__);
     }
 }
 

@@ -19,7 +19,7 @@ void Shader::loadShaderFromFile(const char* filePath, GLenum shaderType) {
     if (compilationStatus == GL_FALSE) {
         GLchar infoLogBuffer[512];
         glGetShaderInfoLog(_shaderID, 512, NULL, infoLogBuffer);
-        _log::error(infoLogBuffer);
+        _log::error(infoLogBuffer, __FILE__, __LINE__);
     }
 
     _shaderType = shaderType;

@@ -22,16 +22,12 @@ namespace renderer {
          * 
          */
         GPUdata::VertexBufferObject *vertices;
-<<<<<<< HEAD
 
         /**
-         * @brief Stores indeces data
+         * @brief Stores indices data
          * 
          */
-        GPUdata::ElementBufferObject *indeces;
-=======
         GPUdata::ElementBufferObject *indices;
->>>>>>> dbc54e254931a7dd75c7a0be0404921297e86a5e
 
     public:
         /**
@@ -64,6 +60,14 @@ namespace renderer {
          * @return Model** Array of Model*
          */
         static Model **load_many(const char **path, size_t count);
+
+        /**
+         * @brief Get id of indieces buffer
+         * 
+         * @return GLuint Id of indieces buffer
+         */
+        GLuint get_indieces();
+        size_t get_indieces_size();
 
         ~Model();
     };

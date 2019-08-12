@@ -46,3 +46,11 @@ Model::~Model() {
     delete this->vertices;
     delete this->indices;
 }
+
+
+GLuint Model::get_indieces() {
+    return this->indices->getBufferID();
+}
+size_t Model::get_indieces_size() {
+    return this->indices->getBufferSize();
+}

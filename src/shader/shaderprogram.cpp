@@ -18,7 +18,7 @@ void ShaderProgram::linkProgram() {
     if (linkStatus == GL_FALSE) {
         GLchar infoLogBuffer[512];
         glGetProgramInfoLog(_shaderProgramID, 512, NULL, infoLogBuffer);
-        _log::error(infoLogBuffer);
+        _log::error(infoLogBuffer, __FILE__, __LINE__);
     }
 }
 
