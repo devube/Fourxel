@@ -14,13 +14,13 @@ Model *Model::load(const char *path) {
     model->vertices->addData(loader.LoadedVertices.data(), loader.LoadedVertices.size() * sizeof(objl::Vertex));
     model->vertices->uploadDataToGPU(GL_STATIC_DRAW);
 
-    model->indeces = new GPUdata::ElementBufferObject();
-    model->indeces->addData(loader.LoadedIndices.data(), loader.LoadedIndices.size() * sizeof(int));
-    model->indeces->uploadDataToGPU(GL_STATIC_DRAW);
+    model->indices = new GPUdata::ElementBufferObject();
+    model->indices->addData(loader.LoadedIndices.data(), loader.LoadedIndices.size() * sizeof(int));
+    model->indices->uploadDataToGPU(GL_STATIC_DRAW);
 
     return model;
 }
 Model::~Model() {
     delete this->vertices;
-    delete this->indeces;
+    delete this->indices;
 }

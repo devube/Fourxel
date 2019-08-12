@@ -8,7 +8,7 @@ namespace renderer {
     class Model {
     private:
         GPUdata::VertexBufferObject *vertices;
-        GPUdata::ElementBufferObject *indeces;
+        GPUdata::ElementBufferObject *indices;
 
     public:
         static Model *load(const char *path);
