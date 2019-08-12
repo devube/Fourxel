@@ -7,8 +7,7 @@ int main(int argc, char const *argv[]) {
     init::initGLFW(640, 480, "Gute gra");
     init::initOpenGL();
     init::initShaders();
-    init::initVertexBuffers();
-    init::initTextures();
+    init::initModels();
 
     gameloop::gameloop();
 

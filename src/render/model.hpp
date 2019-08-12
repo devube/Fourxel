@@ -22,12 +22,16 @@ namespace renderer {
          * 
          */
         GPUdata::VertexBufferObject *vertices;
+<<<<<<< HEAD
 
         /**
          * @brief Stores indeces data
          * 
          */
         GPUdata::ElementBufferObject *indeces;
+=======
+        GPUdata::ElementBufferObject *indices;
+>>>>>>> dbc54e254931a7dd75c7a0be0404921297e86a5e
 
     public:
         /**
