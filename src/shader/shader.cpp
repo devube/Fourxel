@@ -2,6 +2,8 @@
 #include "files/readfile.hpp"
 #include "log/log.hpp"
 
+#include <cstdlib>
+
 void Shader::loadShaderFromFile(const char* filePath, GLenum shaderType) {
 
     // Read shader source to C string
@@ -23,6 +25,7 @@ void Shader::loadShaderFromFile(const char* filePath, GLenum shaderType) {
     }
 
     _shaderType = shaderType;
+    free(shaderSrc);
 }
 
 GLuint Shader::getShaderID() const {

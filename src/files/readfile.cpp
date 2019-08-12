@@ -11,12 +11,12 @@ char* strFromFile(const char* path) {
         fseek(file, 0, SEEK_END);
         length = ftell(file);
         fseek(file, 0, SEEK_SET);
-        buffer = (char*)malloc(length);
+        buffer = (char*)malloc(sizeof(char) * (length + 1));
         if (buffer) {
-            fread(buffer, 1, length, file);
+            fread(buffer, sizeof(char) * length, 1, file);
         }
         fclose(file);
     }
-
+    buffer[length] = '\0';
     return buffer;
 }
