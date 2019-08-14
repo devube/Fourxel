@@ -19,6 +19,18 @@ Model *Model::load(const char *path) {
     model->indices->addData(loader.LoadedIndices.data(), loader.LoadedIndices.size() * sizeof(int));
     model->indices->uploadDataToGPU(GL_STATIC_DRAW);
 
+    // position
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(0);
+
+    // normal
+    glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
+    glEnableVertexAttribArray(2);
+
+    // uv
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
+    glEnableVertexAttribArray(1);
+
     return model;
 }
 
@@ -37,6 +49,18 @@ Model **Model::load_many(const char **path, size_t count) {
         models[i]->indices = new GPUdata::ElementBufferObject();
         models[i]->indices->addData(loader.LoadedIndices.data(), loader.LoadedIndices.size() * sizeof(int));
         models[i]->indices->uploadDataToGPU(GL_STATIC_DRAW);
+
+        // position
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
+        glEnableVertexAttribArray(0);
+
+        // normal
+        glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
+        glEnableVertexAttribArray(2);
+
+        // uv
+        glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
+        glEnableVertexAttribArray(1);
     }
 
     return models;
